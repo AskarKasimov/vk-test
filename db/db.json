@@ -1,102 +1,104 @@
-[
-  {
-    "id": "1",
-    "title": "Убить пересмешника",
-    "author": "Харпер Ли",
-    "genre": "Художественная литература",
-    "language": "Английский",
-    "year": 1960,
-    "availableCopies": 3,
-    "totalCopies": 5
-  },
-  {
-    "id": "2",
-    "title": "1984",
-    "author": "Джордж Оруэлл",
-    "genre": "Антиутопия",
-    "language": "Английский",
-    "year": 1949,
-    "availableCopies": 0,
-    "totalCopies": 4
-  },
-  {
-    "id": "3",
-    "title": "Отверженные",
-    "author": "Виктор Гюго",
-    "genre": "Исторический роман",
-    "language": "Французский",
-    "year": 1862,
-    "availableCopies": 1,
-    "totalCopies": 2
-  },
-  {
-    "id": "4",
-    "title": "Преступление и наказание",
-    "author": "Фёдор Достоевский",
-    "genre": "Философская проза",
-    "language": "Русский",
-    "year": 1866,
-    "availableCopies": 2,
-    "totalCopies": 3
-  },
-  {
-    "id": "5",
-    "title": "Хоббит",
-    "author": "Дж. Р. Р. Толкин",
-    "genre": "Фэнтези",
-    "language": "Английский",
-    "year": 1937,
-    "availableCopies": 5,
-    "totalCopies": 5
-  },
-  {
-    "id": "6",
-    "title": "Сто лет одиночества",
-    "author": "Габриэль Гарсиа Маркес",
-    "genre": "Магический реализм",
-    "language": "Испанский",
-    "year": 1967,
-    "availableCopies": 1,
-    "totalCopies": 2
-  },
-  {
-    "id": "7",
-    "title": "Волшебная гора",
-    "author": "Томас Манн",
-    "genre": "Модернизм",
-    "language": "Немецкий",
-    "year": 1924,
-    "availableCopies": 0,
-    "totalCopies": 1
-  },
-  {
-    "id": "8",
-    "title": "Великий Гэтсби",
-    "author": "Фрэнсис Скотт Фицджеральд",
-    "genre": "Трагедия",
-    "language": "Английский",
-    "year": 1925,
-    "availableCopies": 4,
-    "totalCopies": 4
-  },
-  {
-    "id": "9",
-    "title": "Имя розы",
-    "author": "Умберто Эко",
-    "genre": "Детектив",
-    "language": "Итальянский",
-    "year": 1980,
-    "availableCopies": 2,
-    "totalCopies": 2
-  },
-  {
-    "id": "10",
-    "title": "Норвежский лес",
-    "author": "Харуки Мураками",
-    "genre": "Романтика",
-    "language": "Японский",
-    "year": 1987,
-    "availableCopies": 1,
-    "totalCopies": 3
-  }
-]
+{
+  "books": [
+    {
+      "id": "1",
+      "title": "Убить пересмешника",
+      "author": "Харпер Ли",
+      "genre": "Художественная литература",
+      "language": "Английский",
+      "year": 1960,
+      "availableCopies": 3,
+      "totalCopies": 5
+    },
+    {
+      "id": "2",
+      "title": "1984",
+      "author": "Джордж Оруэлл",
+      "genre": "Антиутопия",
+      "language": "Английский",
+      "year": 1949,
+      "availableCopies": 0,
+      "totalCopies": 4
+    },
+    {
+      "id": "3",
+      "title": "Отверженные",
+      "author": "Виктор Гюго",
+      "genre": "Исторический роман",
+      "language": "Французский",
+      "year": 1862,
+      "availableCopies": 1,
+      "totalCopies": 2
+    },
+    {
+      "id": "4",
+      "title": "Преступление и наказание",
+      "author": "Фёдор Достоевский",
+      "genre": "Философская проза",
+      "language": "Русский",
+      "year": 1866,
+      "availableCopies": 2,
+      "totalCopies": 3
+    },
+    {
+      "id": "5",
+      "title": "Хоббит",
+      "author": "Дж. Р. Р. Толкин",
+      "genre": "Фэнтези",
+      "language": "Английский",
+      "year": 1937,
+      "availableCopies": 5,
+      "totalCopies": 5
+    },
+    {
+      "id": "6",
+      "title": "Сто лет одиночества",
+      "author": "Габриэль Гарсиа Маркес",
+      "genre": "Магический реализм",
+      "language": "Испанский",
+      "year": 1967,
+      "availableCopies": 1,
+      "totalCopies": 2
+    },
+    {
+      "id": "7",
+      "title": "Волшебная гора",
+      "author": "Томас Манн",
+      "genre": "Модернизм",
+      "language": "Немецкий",
+      "year": 1924,
+      "availableCopies": 0,
+      "totalCopies": 1
+    },
+    {
+      "id": "8",
+      "title": "Великий Гэтсби",
+      "author": "Фрэнсис Скотт Фицджеральд",
+      "genre": "Трагедия",
+      "language": "Английский",
+      "year": 1925,
+      "availableCopies": 4,
+      "totalCopies": 4
+    },
+    {
+      "id": "9",
+      "title": "Имя розы",
+      "author": "Умберто Эко",
+      "genre": "Детектив",
+      "language": "Итальянский",
+      "year": 1980,
+      "availableCopies": 2,
+      "totalCopies": 2
+    },
+    {
+      "id": "10",
+      "title": "Норвежский лес",
+      "author": "Харуки Мураками",
+      "genre": "Романтика",
+      "language": "Японский",
+      "year": 1987,
+      "availableCopies": 1,
+      "totalCopies": 3
+    }
+  ]
+}
