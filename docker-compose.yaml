@@ -1,10 +1,17 @@
 services:
-  project:
+  vk-test-main-app:
     build:
       context: ./
-    container_name: project
+    container_name: vk-test-main-app
     environment:
-      - VITE_API_URL=https://api.project.com
+      - VITE_API_URL=http://localhost:3001
     restart: on-failure
     ports:
       - '3000:3000'
+  mock-api:
+    build:
+      context: ./db
+    container_name: vk-test-mock-api
+    restart: on-failure
+    ports:
+      - '3001:3001'
