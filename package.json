@@ -1,5 +1,5 @@
 {
-  "name": "project",
+  "name": "vk-test",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -18,7 +18,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix . && prettier --write .",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db": "json-server db/db.json --port 3001"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.79.0",
@@ -45,6 +46,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "husky": "^9.1.7",
+    "json-server": "^1.0.0-beta.3",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "typescript": "~5.8.3",
