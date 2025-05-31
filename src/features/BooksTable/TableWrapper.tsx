@@ -15,32 +15,26 @@ const TableWrapper: FC = () => {
     isFetchingNextPage,
   } = useGetInfinityBooks();
 
-  const loaderRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    const target = wrapperRef.current;
+
+    if (target == null) return;
+
+    const bottomReached =
+      target.scrollHeight - target.scrollTop <= target.clientHeight + 100;
+
+    if (bottomReached && hasNextPage && !isFetchingNextPage) {
+      // нужно проверить, что есть следующая страница, и при этом загрузка уже не происходит
+      fetchNextPage();
+    }
+  };
 
   useEffect(() => {
-    const currentRef = loaderRef.current;
-    if (!currentRef) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          // нужно проверить, что есть следующая страница, и при этом загрузка уже не происходит
-          fetchNextPage();
-        }
-      },
-      {
-        root: document.querySelector(`.${styles.tableWrapper}`),
-        rootMargin: '100px',
-        threshold: 0.1,
-      }
-    );
-
-    observer.observe(currentRef);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [hasNextPage]);
+    // вызов просчёта необходимости подгрузки в случае, если скролл статичен внизу страницы
+    handleScroll();
+  }, [data, hasNextPage, isFetchingNextPage]);
 
   if (isError) {
     return (
@@ -61,18 +55,20 @@ const TableWrapper: FC = () => {
   }
 
   return (
-    <div className={styles.tableWrapper}>
+    <div
+      className={styles.tableWrapper}
+      onScroll={handleScroll}
+      ref={wrapperRef}
+    >
       <Table
         books={data?.pages.flatMap((page) => page.books) || []}
         isFetchingNextPage={isFetchingNextPage}
         isSuccess={isSuccess}
       />
-      <div ref={loaderRef} className={styles.loader}>
+      <div className={styles.loader}>
         <h2>*конец таблицы*</h2>
         {hasNextPage ? (
-          !isFetchingNextPage && (
-            <p>Ничего страшного, ещё парочка книг на подходе</p>
-          )
+          <p>Ничего страшного, ещё парочка книг на подходе</p>
         ) : (
           <p>Что ж, на этом пока всё :(</p>
         )}
@@ -80,4 +76,5 @@ const TableWrapper: FC = () => {
     </div>
   );
 };
+
 export default TableWrapper;
