@@ -1,14 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { Book, BookDTO } from './types.ts';
 import { bookApi } from '../../shared/api/endpoints/book.ts';
 import { bookDTOSchema } from './schema.ts';
 import { adaptBook } from './adapter.ts';
 
-export const useGetAllBooksQuery = () => {
-  return useQuery({
+export const useGetBooksByPageQuery = () => {
+  return useInfiniteQuery({
     queryKey: ['books'],
-    queryFn: async (): Promise<Book[]> => {
-      const rawDTO: BookDTO[] = await bookApi.getAllBooks();
+    queryFn: async ({
+      pageParam = 0,
+    }): Promise<{ books: Book[]; hasMore: boolean }> => {
+      const rawDTO: BookDTO[] = await bookApi.getBooksByPage(pageParam);
+      const booksCount = rawDTO.length;
       const safeParsedBooks = rawDTO.map((book) => {
         const result = bookDTOSchema.safeParse(book);
         if (!result.success) {
@@ -16,9 +19,16 @@ export const useGetAllBooksQuery = () => {
         }
         return result;
       });
-      return safeParsedBooks
-        .filter((r) => r.success)
-        .map((r) => adaptBook(r.data));
+      return {
+        books: safeParsedBooks
+          .filter((r) => r.success)
+          .map((r) => adaptBook(r.data)),
+        hasMore: booksCount > 0,
+      };
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.hasMore ? allPages.length : undefined;
     },
   });
 };

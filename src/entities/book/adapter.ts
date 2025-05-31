@@ -1,7 +1,7 @@
 import { Book, BookDTO } from './types';
 
 export const adaptBook = (dto: BookDTO): Book => ({
-  id: Number(dto.id),
+  id: dto.id,
   title: dto.title,
   author: dto.author,
   genre: dto.genre,

@@ -12,7 +12,7 @@ export type BookDTO = {
 
 // внутрянка
 export type Book = {
-  id: number;
+  id: string;
   title: string;
   author: string;
   genre: string;

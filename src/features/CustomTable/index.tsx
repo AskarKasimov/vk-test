@@ -24,15 +24,15 @@ const CustomTable: FC<CustomTableProps> = ({ rows }: CustomTableProps) => {
       <tbody>
         {rows.map((book) => (
           <tr key={book.id}>
-            <td>{book.isAvailable}</td>
+            <td>{book.isAvailable ? '✅' : '❌'}</td>
             <td>{book.id}</td>
             <td>{book.title}</td>
             <td>{book.author}</td>
             <td>{book.genre}</td>
             <td>{book.language}</td>
             <td>{book.year}</td>
-            <td>{book.totalCopies}</td>
             <td>{book.availableCopies}</td>
+            <td>{book.totalCopies}</td>
           </tr>
         ))}
       </tbody>

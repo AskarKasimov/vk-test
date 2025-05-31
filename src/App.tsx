@@ -1,13 +1,15 @@
 import { FC } from 'react';
 import CustomTable from './features/CustomTable';
-import { useGetAllBooksQuery } from './entities/book/queries.ts';
+import { useGetBooksByPageQuery } from './entities/book/queries.ts';
 
 const App: FC = () => {
-  const { data, isSuccess } = useGetAllBooksQuery();
+  const { data, isSuccess } = useGetBooksByPageQuery();
 
   return (
     <>
-      <CustomTable rows={isSuccess ? data : []} />
+      <CustomTable
+        rows={isSuccess ? data.pages.flatMap((page) => page.books) : []}
+      />
     </>
   );
 };
