@@ -66,7 +66,11 @@ const TableWrapper: FC = () => {
 
   return (
     <div className={styles.tableBlock}>
-      <TableControls refetch={refetch} reset={handleReset} />
+      <TableControls
+        refetch={refetch}
+        reset={handleReset}
+        disabled={isLoading || isFetchingNextPage || !data}
+      />
       <div
         className={styles.tableWrapper}
         onScroll={handleScroll}
