@@ -7,18 +7,19 @@ export type BookDTO = {
   language: string;
   year: number;
   availableCopies: number;
-  totalCopies: number;
+  occupiedCopies: number;
 };
 
 // внутрянка
 export type Book = {
-  id: number;
+  id: string;
   title: string;
   author: string;
   genre: string;
   language: string;
   year: number;
   availableCopies: number;
+  occupiedCopies: number;
   totalCopies: number;
   isAvailable: boolean;
 };

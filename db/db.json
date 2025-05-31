@@ -3,12 +3,11 @@
     {
       "id": "1",
       "title": "Убить пересмешника",
-      "author": "Харпер Ли",
       "genre": "Художественная литература",
       "language": "Английский",
       "year": 1960,
       "availableCopies": 3,
-      "totalCopies": 5
+      "occupiedCopies": 5
     },
     {
       "id": "2",
@@ -18,7 +17,7 @@
       "language": "Английский",
       "year": 1949,
       "availableCopies": 0,
-      "totalCopies": 4
+      "occupiedCopies": 4
     },
     {
       "id": "3",
@@ -28,7 +27,7 @@
       "language": "Французский",
       "year": 1862,
       "availableCopies": 1,
-      "totalCopies": 2
+      "occupiedCopies": 2
     },
     {
       "id": "4",
@@ -38,7 +37,7 @@
       "language": "Русский",
       "year": 1866,
       "availableCopies": 2,
-      "totalCopies": 3
+      "occupiedCopies": 3
     },
     {
       "id": "5",
@@ -48,7 +47,7 @@
       "language": "Английский",
       "year": 1937,
       "availableCopies": 5,
-      "totalCopies": 5
+      "occupiedCopies": 5
     },
     {
       "id": "6",
@@ -58,7 +57,7 @@
       "language": "Испанский",
       "year": 1967,
       "availableCopies": 1,
-      "totalCopies": 2
+      "occupiedCopies": 2
     },
     {
       "id": "7",
@@ -68,7 +67,7 @@
       "language": "Немецкий",
       "year": 1924,
       "availableCopies": 0,
-      "totalCopies": 1
+      "occupiedCopies": 1
     },
     {
       "id": "8",
@@ -78,7 +77,7 @@
       "language": "Английский",
       "year": 1925,
       "availableCopies": 4,
-      "totalCopies": 4
+      "occupiedCopies": 4
     },
     {
       "id": "9",
@@ -88,7 +87,7 @@
       "language": "Итальянский",
       "year": 1980,
       "availableCopies": 2,
-      "totalCopies": 2
+      "occupiedCopies": 2
     },
     {
       "id": "10",
@@ -98,7 +97,107 @@
       "language": "Японский",
       "year": 1987,
       "availableCopies": 1,
-      "totalCopies": 3
+      "occupiedCopies": 3
+    },
+    {
+      "id": "11",
+      "title": "Затерянный город",
+      "author": "Александр Вест",
+      "genre": "Приключения",
+      "language": "Русский",
+      "year": 1957,
+      "availableCopies": 4,
+      "occupiedCopies": 5
+    },
+    {
+      "id": "12",
+      "title": "Снежная королева",
+      "author": "Луиза Миллер",
+      "genre": "Сказка",
+      "language": "Английский",
+      "year": 1976,
+      "availableCopies": 1,
+      "occupiedCopies": 3
+    },
+    {
+      "id": "13",
+      "title": "Лабиринты разума",
+      "author": "Даниэль Кельман",
+      "genre": "Философия",
+      "language": "Немецкий",
+      "year": 1982,
+      "availableCopies": 3,
+      "occupiedCopies": 5
+    },
+    {
+      "id": "14",
+      "title": "Море без дна",
+      "author": "Роберто Гальвес",
+      "genre": "Поэзия",
+      "language": "Испанский",
+      "year": 1943,
+      "availableCopies": 2,
+      "occupiedCopies": 2
+    },
+    {
+      "id": "15",
+      "title": "Под лунным светом",
+      "author": "Кира Ямасита",
+      "genre": "Романтика",
+      "language": "Японский",
+      "year": 2001,
+      "availableCopies": 3,
+      "occupiedCopies": 4
+    },
+    {
+      "id": "16",
+      "title": "Золотой век",
+      "author": "Анна Ферро",
+      "genre": "История",
+      "language": "Итальянский",
+      "year": 1978,
+      "availableCopies": 5,
+      "occupiedCopies": 5
+    },
+    {
+      "id": "17",
+      "title": "Кольцо власти",
+      "author": "Джон Риверс",
+      "genre": "Фэнтези",
+      "language": "Английский",
+      "year": 1999,
+      "availableCopies": 2,
+      "occupiedCopies": 3
+    },
+    {
+      "id": "18",
+      "title": "Цветок тени",
+      "author": "Лю Синь",
+      "genre": "Детектив",
+      "language": "Китайский",
+      "year": 2012,
+      "availableCopies": 1,
+      "occupiedCopies": 2
+    },
+    {
+      "id": "19",
+      "title": "Тишина в горах",
+      "author": "Марсель Дюпон",
+      "genre": "Драма",
+      "language": "Французский",
+      "year": 1965,
+      "availableCopies": 3,
+      "occupiedCopies": 4
+    },
+    {
+      "id": "20",
+      "title": "Хрустальный остров",
+      "author": "Оливия Кларк",
+      "genre": "Приключения",
+      "language": "Английский",
+      "year": 1988,
+      "availableCopies": 4,
+      "occupiedCopies": 5
     }
   ]
 }
