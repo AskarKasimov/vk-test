@@ -29,6 +29,7 @@ const BooksTable: FC<BooksTableProps> = ({
           <th>Язык</th>
           <th>Год выпуска</th>
           <th>Свободны</th>
+          <th>Заняты</th>
           <th>Всего</th>
         </tr>
       </thead>
@@ -44,6 +45,7 @@ const BooksTable: FC<BooksTableProps> = ({
                 <td>{book.language}</td>
                 <td>{book.year}</td>
                 <td>{book.availableCopies}</td>
+                <td>{book.occupiedCopies}</td>
                 <td>{book.totalCopies}</td>
               </tr>
             ))

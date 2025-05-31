@@ -8,5 +8,5 @@ export const bookDTOSchema = z.object({
   language: z.string(),
   year: z.number(),
   availableCopies: z.number(),
-  totalCopies: z.number(),
+  occupiedCopies: z.number(),
 });

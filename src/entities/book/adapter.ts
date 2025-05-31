@@ -8,7 +8,8 @@ export const adaptBook = (dto: BookDTO): Book => ({
   language: dto.language,
   year: dto.year,
   availableCopies: dto.availableCopies,
-  totalCopies: dto.totalCopies,
-  // вычисляемое поле, проверка доступности книжки
+  occupiedCopies: dto.occupiedCopies,
+  // вычисляемые поля
+  totalCopies: dto.availableCopies + dto.occupiedCopies,
   isAvailable: dto.availableCopies > 0,
 });
