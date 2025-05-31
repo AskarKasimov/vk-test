@@ -48,7 +48,7 @@ const BooksTable: FC<BooksTableProps> = ({
           : isLoading
             ? Array.from(Array(4).keys()).map((tr) => (
                 <tr key={tr}>
-                  {Array.from(Array(9).keys()).map((td) => (
+                  {Array.from(Array(10).keys()).map((td) => (
                     <td key={td}>
                       <div className={styles.skeleton} />
                     </td>
