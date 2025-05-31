@@ -5,6 +5,7 @@ import Table from './Table/Table.tsx';
 import Loader from '../../shared/ui/Loader';
 import TableControls from './TableControls/TableControls.tsx';
 import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const TableWrapper: FC = () => {
   const {
@@ -23,6 +24,13 @@ const TableWrapper: FC = () => {
     // сброс таблицы
     queryClient.removeQueries({ queryKey: ['books'] });
     await refetch();
+    toast.success('Таблица сброшена');
+  };
+
+  const handleRefetch = async () => {
+    // обновление таблицы
+    await refetch();
+    toast.success('Таблица обновлена');
   };
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -67,7 +75,7 @@ const TableWrapper: FC = () => {
   return (
     <div className={styles.tableBlock}>
       <TableControls
-        refetch={refetch}
+        refetch={handleRefetch}
         reset={handleReset}
         disabled={isLoading || isFetchingNextPage || !data}
       />

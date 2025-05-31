@@ -1,21 +1,8 @@
 import { FC } from 'react';
 import styles from './TableControls.module.scss';
-import { Book } from '@/entities/book/types';
-import { InfiniteData, QueryObserverResult } from '@tanstack/react-query';
 
 interface TableControlsProps {
-  refetch: () => Promise<
-    QueryObserverResult<
-      InfiniteData<
-        {
-          books: Book[];
-          hasMore: boolean;
-        },
-        unknown
-      >,
-      Error
-    >
-  >;
+  refetch: () => void;
   reset: () => void;
   disabled?: boolean;
 }
