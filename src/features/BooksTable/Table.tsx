@@ -4,13 +4,13 @@ import { Book } from '../../entities/book/types.ts';
 
 interface BooksTableProps {
   books: Book[];
-  isLoading: boolean;
+  isFetchingNextPage: boolean;
   isSuccess: boolean;
 }
 
 const BooksTable: FC<BooksTableProps> = ({
   books,
-  isLoading,
+  isFetchingNextPage,
   isSuccess,
 }: BooksTableProps) => {
   return (
@@ -45,17 +45,18 @@ const BooksTable: FC<BooksTableProps> = ({
                 <td>{book.totalCopies}</td>
               </tr>
             ))
-          : isLoading
-            ? Array.from(Array(4).keys()).map((tr) => (
-                <tr key={tr}>
-                  {Array.from(Array(10).keys()).map((td) => (
-                    <td key={td}>
-                      <div className={styles.skeleton} />
-                    </td>
-                  ))}
-                </tr>
-              ))
-            : null}
+          : null}
+        {isFetchingNextPage
+          ? Array.from(Array(4).keys()).map((tr) => (
+              <tr key={tr}>
+                {Array.from(Array(10).keys()).map((td) => (
+                  <td key={td}>
+                    <div className={styles.skeleton} />
+                  </td>
+                ))}
+              </tr>
+            ))
+          : null}
       </tbody>
     </table>
   );

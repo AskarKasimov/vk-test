@@ -44,8 +44,18 @@ const TableWrapper: FC = () => {
 
   if (isError) {
     return (
-      <div className={styles.error}>
-        <h2>⛔ Произошла ошибка при загрузке данных</h2>
+      <div className={styles.loader}>
+        <h2>⛔</h2>
+        <h2>Произошла ошибка при загрузке данных</h2>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className={styles.loader}>
+        <Loader />
+        <h2>Загрузка данных...</h2>
       </div>
     );
   }
@@ -54,11 +64,18 @@ const TableWrapper: FC = () => {
     <div className={styles.tableWrapper}>
       <Table
         books={data?.pages.flatMap((page) => page.books) || []}
-        isLoading={isLoading}
+        isFetchingNextPage={isFetchingNextPage}
         isSuccess={isSuccess}
       />
       <div ref={loaderRef} className={styles.loader}>
-        {isFetchingNextPage && <Loader />}
+        <h2>*конец таблицы*</h2>
+        {hasNextPage ? (
+          !isFetchingNextPage && (
+            <p>Ничего страшного, ещё парочка книг на подходе</p>
+          )
+        ) : (
+          <p>Что ж, на этом пока всё :(</p>
+        )}
       </div>
     </div>
   );

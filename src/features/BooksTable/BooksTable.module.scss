@@ -1,9 +1,11 @@
 .tableWrapper {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   overflow: auto;
   border: 1px solid #e0e0e0;
   border-radius: 7px;
-  background: white;
+  padding-bottom: 1rem;
 
   max-width: 80svw;
   max-height: 30svh;
@@ -78,9 +80,8 @@
 
 .loader {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-
-  > div {
-    margin-top: 1rem;
-  }
+  align-items: center;
+  gap: 1rem;
 }
