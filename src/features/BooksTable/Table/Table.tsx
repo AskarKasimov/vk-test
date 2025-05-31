@@ -1,18 +1,18 @@
 import { FC } from 'react';
-import styles from './BooksTable.module.scss';
-import { Book } from '../../entities/book/types.ts';
+import styles from './Table.module.scss';
+import { Book } from '../../../entities/book/types.ts';
 
-interface BooksTableProps {
+interface TableProps {
   books: Book[];
   isFetchingNextPage: boolean;
   isSuccess: boolean;
 }
 
-const BooksTable: FC<BooksTableProps> = ({
+const Table: FC<TableProps> = ({
   books,
   isFetchingNextPage,
   isSuccess,
-}: BooksTableProps) => {
+}: TableProps) => {
   return (
     <table className={styles.table}>
       <thead>
@@ -62,4 +62,4 @@ const BooksTable: FC<BooksTableProps> = ({
   );
 };
 
-export default BooksTable;
+export default Table;

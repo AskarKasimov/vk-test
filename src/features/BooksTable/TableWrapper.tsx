@@ -1,8 +1,10 @@
 import { FC, useEffect, useRef } from 'react';
-import styles from './BooksTable.module.scss';
+import styles from './TableWrapper.module.scss';
 import { useGetInfinityBooks } from '../../entities/book/queries.ts';
-import Table from './Table.tsx';
+import Table from './Table/Table.tsx';
 import Loader from '../../shared/ui/Loader';
+import TableControls from './TableControls/TableControls.tsx';
+import { useQueryClient } from '@tanstack/react-query';
 
 const TableWrapper: FC = () => {
   const {
@@ -13,34 +15,36 @@ const TableWrapper: FC = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useGetInfinityBooks();
 
-  const loaderRef = useRef<HTMLDivElement>(null);
+  const queryClient = useQueryClient();
+  const handleReset = async () => {
+    // сброс таблицы
+    queryClient.removeQueries({ queryKey: ['books'] });
+    await refetch();
+  };
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    const target = wrapperRef.current;
+
+    if (target == null) return;
+
+    const bottomReached =
+      target.scrollHeight - target.scrollTop <= target.clientHeight + 100;
+
+    if (bottomReached && hasNextPage && !isFetchingNextPage) {
+      // нужно проверить, что есть следующая страница, и при этом загрузка уже не происходит
+      fetchNextPage();
+    }
+  };
 
   useEffect(() => {
-    const currentRef = loaderRef.current;
-    if (!currentRef) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          // нужно проверить, что есть следующая страница, и при этом загрузка уже не происходит
-          fetchNextPage();
-        }
-      },
-      {
-        root: document.querySelector(`.${styles.tableWrapper}`),
-        rootMargin: '100px',
-        threshold: 0.1,
-      }
-    );
-
-    observer.observe(currentRef);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [hasNextPage]);
+    // вызов просчёта необходимости подгрузки в случае, если скролл статичен внизу страницы
+    handleScroll();
+  }, [data, hasNextPage, isFetchingNextPage]);
 
   if (isError) {
     return (
@@ -61,23 +65,29 @@ const TableWrapper: FC = () => {
   }
 
   return (
-    <div className={styles.tableWrapper}>
-      <Table
-        books={data?.pages.flatMap((page) => page.books) || []}
-        isFetchingNextPage={isFetchingNextPage}
-        isSuccess={isSuccess}
-      />
-      <div ref={loaderRef} className={styles.loader}>
-        <h2>*конец таблицы*</h2>
-        {hasNextPage ? (
-          !isFetchingNextPage && (
+    <div className={styles.tableBlock}>
+      <TableControls refetch={refetch} reset={handleReset} />
+      <div
+        className={styles.tableWrapper}
+        onScroll={handleScroll}
+        ref={wrapperRef}
+      >
+        <Table
+          books={data?.pages.flatMap((page) => page.books) || []}
+          isFetchingNextPage={isFetchingNextPage}
+          isSuccess={isSuccess}
+        />
+        <div className={styles.loader}>
+          <h2>*конец таблицы*</h2>
+          {hasNextPage ? (
             <p>Ничего страшного, ещё парочка книг на подходе</p>
-          )
-        ) : (
-          <p>Что ж, на этом пока всё :(</p>
-        )}
+          ) : (
+            <p>Что ж, на этом пока всё :(</p>
+          )}
+        </div>
       </div>
     </div>
   );
 };
+
 export default TableWrapper;
