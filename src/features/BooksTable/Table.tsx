@@ -5,18 +5,14 @@ import { Book } from '../../entities/book/types.ts';
 interface BooksTableProps {
   books: Book[];
   isLoading: boolean;
-  isError: boolean;
   isSuccess: boolean;
 }
 
 const BooksTable: FC<BooksTableProps> = ({
   books,
   isLoading,
-  isError,
   isSuccess,
 }: BooksTableProps) => {
-  if (isError) return <>Ошибка связи с сервером</>;
-
   return (
     <table className={styles.table}>
       <thead>

@@ -15,36 +15,46 @@ const TableWrapper: FC = () => {
     isFetchingNextPage,
   } = useGetInfinityBooks();
 
-  const loaderRef = useRef<HTMLDivElement | null>(null);
+  const loaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const currentRef = loaderRef.current;
+    if (!currentRef) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          // нужно проверить, что есть следующая страница, и при этом загрузка уже не происходит
           fetchNextPage();
         }
       },
       {
+        root: document.querySelector(`.${styles.tableWrapper}`),
         rootMargin: '100px',
         threshold: 0.1,
       }
     );
 
-    const currentRef = loaderRef.current;
-    if (currentRef) observer.observe(currentRef);
+    observer.observe(currentRef);
 
     return () => {
-      if (currentRef) observer.unobserve(currentRef);
+      observer.disconnect();
     };
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+  }, [hasNextPage]);
+
+  if (isError) {
+    return (
+      <div className={styles.error}>
+        <h2>⛔ Произошла ошибка при загрузке данных</h2>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.tableWrapper}>
       <Table
         books={data?.pages.flatMap((page) => page.books) || []}
         isLoading={isLoading}
-        isError={isError}
         isSuccess={isSuccess}
       />
       <div ref={loaderRef} className={styles.loader}>
