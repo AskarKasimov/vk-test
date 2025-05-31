@@ -1,10 +1,13 @@
 import { FC } from 'react';
 import CustomTable from './features/CustomTable';
+import { useGetAllBooksQuery } from './entities/book/queries.ts';
 
 const App: FC = () => {
+  const { data, isSuccess } = useGetAllBooksQuery();
+
   return (
     <>
-      <CustomTable />
+      <CustomTable rows={isSuccess ? data : []} />
     </>
   );
 };
