@@ -4,7 +4,7 @@ import { bookApi } from '../../shared/api/endpoints/book.ts';
 import { bookDTOSchema } from './schema.ts';
 import { adaptBook } from './adapter.ts';
 
-export const useGetBooksByPageQuery = () => {
+export const useGetInfinityBooks = () => {
   return useInfiniteQuery({
     queryKey: ['books'],
     queryFn: async ({
