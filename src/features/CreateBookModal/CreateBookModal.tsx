@@ -1,6 +1,9 @@
 import Modal from 'react-modal';
 import styles from './CreateBookModal.module.scss';
 import { FormEvent, useState } from 'react';
+import { BookDTO } from '../../entities/book/types.ts';
+import { toast } from 'react-toastify';
+import { useCreateBook } from '../../entities/book/queries.ts';
 
 interface CreateBookModalProps {
   isOpen: boolean;
@@ -17,9 +20,48 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
   const [availableCopies, setAvailableCopies] = useState<string>('');
   const [occupiedCopies, setOccupiedCopies] = useState<string>('');
 
-  const handleSubmit = (e: FormEvent) => {
+  const { mutate } = useCreateBook();
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    onRequestClose();
+    const parsedYear = parseInt(year);
+    if (isNaN(parsedYear)) {
+      toast.error('Год должен быть числом');
+      return;
+    }
+    const parsedAvailableCopies = parseInt(availableCopies);
+    if (isNaN(parsedAvailableCopies)) {
+      toast.error('Количество свободных копий должно быть числом');
+      return;
+    }
+    const parsedOccupiedCopies = parseInt(occupiedCopies);
+    if (isNaN(parsedOccupiedCopies)) {
+      toast.error('Количество занятых копий должно быть числом');
+      return;
+    }
+    const newBook: BookDTO = {
+      id,
+      title,
+      author,
+      genre,
+      language,
+      year: parsedYear,
+      availableCopies: parsedAvailableCopies,
+      occupiedCopies: parsedOccupiedCopies,
+    };
+    mutate(newBook, {
+      onSuccess: () => {
+        toast.success('Книга успешно добавлена');
+        onRequestClose();
+      },
+      onError: (error: unknown) => {
+        if (error instanceof Error) {
+          toast.error(`Ошибка при добавлении книги: ${error.message}`);
+        } else {
+          toast.error('Произошла неизвестная ошибка');
+        }
+      },
+    });
   };
 
   return (
