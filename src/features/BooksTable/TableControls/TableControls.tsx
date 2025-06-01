@@ -3,13 +3,11 @@ import styles from './TableControls.module.scss';
 import CreateBookModal from '../../CreateBookModal/CreateBookModal.tsx';
 
 interface TableControlsProps {
-  refetch: () => void;
   reset: () => void;
   disabled?: boolean;
 }
 
 const TableControls: FC<TableControlsProps> = ({
-  refetch,
   reset,
   disabled = false,
 }: TableControlsProps) => {
@@ -30,18 +28,11 @@ const TableControls: FC<TableControlsProps> = ({
           ✏️ Внести новую книгу
         </button>
         <button
-          className={styles.refetchButton}
-          disabled={disabled}
-          onClick={() => refetch()}
-        >
-          🔄 Обновить
-        </button>
-        <button
           className={styles.resetButton}
           disabled={disabled}
           onClick={() => reset()}
         >
-          🧹 Сбросить
+          🔄 Обновить
         </button>
       </div>
     </>

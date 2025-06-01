@@ -27,12 +27,6 @@ const TableWrapper: FC = () => {
     toast.success('Таблица сброшена');
   };
 
-  const handleRefetch = async () => {
-    // обновление таблицы
-    await refetch();
-    toast.success('Таблица обновлена');
-  };
-
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
@@ -75,7 +69,6 @@ const TableWrapper: FC = () => {
   return (
     <div className={styles.tableBlock}>
       <TableControls
-        refetch={handleRefetch}
         reset={handleReset}
         disabled={isLoading || isFetchingNextPage || !data}
       />
