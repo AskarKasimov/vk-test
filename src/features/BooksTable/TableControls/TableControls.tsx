@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styles from './TableControls.module.scss';
+import CreateBookModal from '../../CreateBookModal/CreateBookModal.tsx';
 
 interface TableControlsProps {
   refetch: () => void;
@@ -12,30 +13,38 @@ const TableControls: FC<TableControlsProps> = ({
   reset,
   disabled = false,
 }: TableControlsProps) => {
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
   return (
-    <div className={styles.controls}>
-      <button
-        className={styles.createButton}
-        disabled={disabled}
-        onClick={() => refetch()}
-      >
-        ✏️ Внести новую книгу
-      </button>
-      <button
-        className={styles.refetchButton}
-        disabled={disabled}
-        onClick={() => refetch()}
-      >
-        🔄 Обновить
-      </button>
-      <button
-        className={styles.resetButton}
-        disabled={disabled}
-        onClick={() => reset()}
-      >
-        🧹 Сбросить
-      </button>
-    </div>
+    <>
+      <CreateBookModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setModalOpen(false)}
+      />
+      <div className={styles.controls}>
+        <button
+          className={styles.createButton}
+          disabled={disabled}
+          onClick={() => setModalOpen(!isModalOpen)}
+        >
+          ✏️ Внести новую книгу
+        </button>
+        <button
+          className={styles.refetchButton}
+          disabled={disabled}
+          onClick={() => refetch()}
+        >
+          🔄 Обновить
+        </button>
+        <button
+          className={styles.resetButton}
+          disabled={disabled}
+          onClick={() => reset()}
+        >
+          🧹 Сбросить
+        </button>
+      </div>
+    </>
   );
 };
 
