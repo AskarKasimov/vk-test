@@ -5,16 +5,18 @@
 
 ## Запуск
 
-Всё по-классике через докер:
+Всё по-классике через докер, env `VITE_API_URL` - это адрес API.
 
 ```
 git clone https://github.com/AskarKasimov/vk-test
 cd vk-test
-docker compose up --build
+VITE_API_URL=http://localhost:3001 docker compose up --build
 ```
 
 В качестве API используется [json-server](https://github.com/typicode/json-server) и исправно поднимается в
 Docker-Compose.
+
+База данных находится в ./db/db.json
 
 ## Основной нструментарий
 
