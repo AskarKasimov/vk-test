@@ -21,10 +21,13 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
   const [availableCopies, setAvailableCopies] = useState<string>('');
   const [occupiedCopies, setOccupiedCopies] = useState<string>('');
 
+  const [disabled, setDisabled] = useState<boolean>(false);
+
   const { mutate } = useCreateBook();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setDisabled(true);
     const parsedYear = parseInt(year);
     if (isNaN(parsedYear)) {
       toast.error('Год должен быть числом');
@@ -55,12 +58,11 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
         toast.success('Книга успешно добавлена');
         onRequestClose();
       },
-      onError: (error: unknown) => {
-        if (error instanceof Error) {
-          toast.error(`Ошибка при добавлении книги: ${error.message}`);
-        } else {
-          toast.error('Произошла неизвестная ошибка');
-        }
+      onError: (error: Error) => {
+        toast.error(`Ошибка при добавлении книги: ${error.message}`);
+      },
+      onSettled: () => {
+        setDisabled(false);
       },
     });
   };
@@ -79,6 +81,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>ID</span>
             <input
+              disabled={disabled}
               type="text"
               placeholder="1"
               value={id}
@@ -88,6 +91,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Название</span>
             <input
+              disabled={disabled}
               type="text"
               placeholder="Война и мир"
               value={title}
@@ -97,6 +101,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Автор</span>
             <input
+              disabled={disabled}
               type="text"
               placeholder="Лев Толстой"
               value={author}
@@ -106,6 +111,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Жанр</span>
             <input
+              disabled={disabled}
               type="text"
               placeholder="Роман"
               value={genre}
@@ -115,6 +121,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Язык</span>
             <input
+              disabled={disabled}
               type="text"
               placeholder="Русский"
               value={language}
@@ -124,6 +131,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Год издания</span>
             <input
+              disabled={disabled}
               type="number"
               min="0"
               placeholder="2016"
@@ -134,6 +142,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Кол-во свободных копий</span>
             <input
+              disabled={disabled}
               type="number"
               min="0"
               placeholder="1"
@@ -144,6 +153,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Кол-во занятых копий</span>
             <input
+              disabled={disabled}
               type="number"
               min="0"
               placeholder="3"
@@ -153,10 +163,15 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           </label>
         </div>
         <div className={styles.controls}>
-          <Button additionalClassName={styles.saveButton} type="submit">
+          <Button
+            disabled={disabled}
+            additionalClassName={styles.saveButton}
+            type="submit"
+          >
             Сохранить
           </Button>
           <Button
+            disabled={disabled}
             additionalClassName={styles.cancelButton}
             onClick={onRequestClose}
           >
