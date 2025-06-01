@@ -19,5 +19,9 @@
     {
       "path": "./tsconfig.node.json"
     }
+  ],
+  "include": [
+    "src",
+    "@testing-library/jest-dom"
   ]
 }
