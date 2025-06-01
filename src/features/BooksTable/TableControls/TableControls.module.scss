@@ -1,0 +1,48 @@
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+
+  & > button {
+    padding: .5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
+
+.refetchButton {
+  background-color: #4caf50;
+  color: #fff;
+
+  &:hover {
+    background-color: #43a047;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.resetButton {
+  background-color: #f44336;
+  color: #fff;
+
+  &:hover {
+    background-color: #e53935;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}

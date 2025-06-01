@@ -1,8 +1,11 @@
 import { FC, useEffect, useRef } from 'react';
-import styles from './BooksTable.module.scss';
+import styles from './TableWrapper.module.scss';
 import { useGetInfinityBooks } from '../../entities/book/queries.ts';
-import Table from './Table.tsx';
+import Table from './Table/Table.tsx';
 import Loader from '../../shared/ui/Loader';
+import TableControls from './TableControls/TableControls.tsx';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const TableWrapper: FC = () => {
   const {
@@ -13,7 +16,22 @@ const TableWrapper: FC = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useGetInfinityBooks();
+
+  const queryClient = useQueryClient();
+  const handleReset = async () => {
+    // сброс таблицы
+    queryClient.removeQueries({ queryKey: ['books'] });
+    await refetch();
+    toast.success('Таблица сброшена');
+  };
+
+  const handleRefetch = async () => {
+    // обновление таблицы
+    await refetch();
+    toast.success('Таблица обновлена');
+  };
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -55,23 +73,30 @@ const TableWrapper: FC = () => {
   }
 
   return (
-    <div
-      className={styles.tableWrapper}
-      onScroll={handleScroll}
-      ref={wrapperRef}
-    >
-      <Table
-        books={data?.pages.flatMap((page) => page.books) || []}
-        isFetchingNextPage={isFetchingNextPage}
-        isSuccess={isSuccess}
+    <div className={styles.tableBlock}>
+      <TableControls
+        refetch={handleRefetch}
+        reset={handleReset}
+        disabled={isLoading || isFetchingNextPage || !data}
       />
-      <div className={styles.loader}>
-        <h2>*конец таблицы*</h2>
-        {hasNextPage ? (
-          <p>Ничего страшного, ещё парочка книг на подходе</p>
-        ) : (
-          <p>Что ж, на этом пока всё :(</p>
-        )}
+      <div
+        className={styles.tableWrapper}
+        onScroll={handleScroll}
+        ref={wrapperRef}
+      >
+        <Table
+          books={data?.pages.flatMap((page) => page.books) || []}
+          isFetchingNextPage={isFetchingNextPage}
+          isSuccess={isSuccess}
+        />
+        <div className={styles.loader}>
+          <h2>*конец таблицы*</h2>
+          {hasNextPage ? (
+            <p>Ничего страшного, ещё парочка книг на подходе</p>
+          ) : (
+            <p>Что ж, на этом пока всё :(</p>
+          )}
+        </div>
       </div>
     </div>
   );
