@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import styles from './TableControls.module.scss';
 import CreateBookModal from '../../CreateBookModal/CreateBookModal.tsx';
+import Button from '../../../shared/ui/Button/Button.tsx';
 
 interface TableControlsProps {
   reset: () => void;
@@ -20,20 +21,20 @@ const TableControls: FC<TableControlsProps> = ({
         onRequestClose={() => setModalOpen(false)}
       />
       <div className={styles.controls}>
-        <button
-          className={styles.createButton}
+        <Button
           disabled={disabled}
           onClick={() => setModalOpen(!isModalOpen)}
+          additionalClassName={styles.createButton}
         >
           ✏️ Внести новую книгу
-        </button>
-        <button
-          className={styles.resetButton}
+        </Button>
+        <Button
           disabled={disabled}
-          onClick={() => reset()}
+          onClick={reset}
+          additionalClassName={styles.resetButton}
         >
           🔄 Обновить
-        </button>
+        </Button>
       </div>
     </>
   );

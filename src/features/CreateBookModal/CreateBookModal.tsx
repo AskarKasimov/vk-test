@@ -4,6 +4,7 @@ import { FormEvent, useState } from 'react';
 import { BookDTO } from '../../entities/book/types.ts';
 import { toast } from 'react-toastify';
 import { useCreateBook } from '../../entities/book/queries.ts';
+import Button from '../../shared/ui/Button/Button.tsx';
 
 interface CreateBookModalProps {
   isOpen: boolean;
@@ -74,86 +75,93 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
     >
       <h2>Добавить книгу</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label>
-          <span>ID</span>
-          <input
-            type="text"
-            placeholder="1"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-        </label>
-        <label>
-          <span>Название</span>
-          <input
-            type="text"
-            placeholder="Война и мир"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
-        <label>
-          <span>Автор</span>
-          <input
-            type="text"
-            placeholder="Лев Толстой"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-        </label>
-        <label>
-          <span>Жанр</span>
-          <input
-            type="text"
-            placeholder="Роман"
-            value={genre}
-            onChange={(e) => setGenre(e.target.value)}
-          />
-        </label>
-        <label>
-          <span>Язык</span>
-          <input
-            type="text"
-            placeholder="Русский"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          />
-        </label>
-        <label>
-          <span>Год издания</span>
-          <input
-            type="number"
-            min="0"
-            placeholder="2016"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          />
-        </label>
-        <label>
-          <span>Кол-во свободных копий</span>
-          <input
-            type="number"
-            min="0"
-            placeholder="1"
-            value={availableCopies}
-            onChange={(e) => setAvailableCopies(e.target.value)}
-          />
-        </label>
-        <label>
-          <span>Кол-во занятых копий</span>
-          <input
-            type="number"
-            min="0"
-            placeholder="3"
-            value={occupiedCopies}
-            onChange={(e) => setOccupiedCopies(e.target.value)}
-          />
-        </label>
+        <div className={styles.labels}>
+          <label>
+            <span>ID</span>
+            <input
+              type="text"
+              placeholder="1"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>Название</span>
+            <input
+              type="text"
+              placeholder="Война и мир"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>Автор</span>
+            <input
+              type="text"
+              placeholder="Лев Толстой"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>Жанр</span>
+            <input
+              type="text"
+              placeholder="Роман"
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>Язык</span>
+            <input
+              type="text"
+              placeholder="Русский"
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>Год издания</span>
+            <input
+              type="number"
+              min="0"
+              placeholder="2016"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>Кол-во свободных копий</span>
+            <input
+              type="number"
+              min="0"
+              placeholder="1"
+              value={availableCopies}
+              onChange={(e) => setAvailableCopies(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>Кол-во занятых копий</span>
+            <input
+              type="number"
+              min="0"
+              placeholder="3"
+              value={occupiedCopies}
+              onChange={(e) => setOccupiedCopies(e.target.value)}
+            />
+          </label>
+        </div>
         <div className={styles.controls}>
-          <button type="submit">Сохранить</button>
-          <button onClick={onRequestClose} className={styles.cancel}>
+          <Button additionalClassName={styles.saveButton} type="submit">
+            Сохранить
+          </Button>
+          <Button
+            additionalClassName={styles.cancelButton}
+            onClick={onRequestClose}
+          >
             Отмена
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>

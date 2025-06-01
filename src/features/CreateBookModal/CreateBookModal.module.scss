@@ -24,6 +24,12 @@
 .form {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+}
+
+.labels {
+  display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 1rem;
   max-height: 80svh;
@@ -54,3 +60,20 @@
   gap: 8px;
 }
 
+.saveButton {
+  background-color: #43a047;
+  color: #fff;
+
+  &:hover {
+    background-color: #388e3c;
+  }
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: #fff;
+
+  &:hover {
+    background-color: #e53935;
+  }
+}
