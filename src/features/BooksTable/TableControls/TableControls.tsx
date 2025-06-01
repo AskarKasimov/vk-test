@@ -15,6 +15,13 @@ const TableControls: FC<TableControlsProps> = ({
   return (
     <div className={styles.controls}>
       <button
+        className={styles.createButton}
+        disabled={disabled}
+        onClick={() => refetch()}
+      >
+        ✏️ Внести новую книгу
+      </button>
+      <button
         className={styles.refetchButton}
         disabled={disabled}
         onClick={() => refetch()}
