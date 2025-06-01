@@ -27,6 +27,7 @@
     "axios": "^1.9.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-modal": "^3.16.3",
     "react-toastify": "^11.0.5",
     "sass": "^1.87.0",
     "zod": "^3.25.42"
@@ -35,6 +36,7 @@
     "@eslint/js": "^9.25.1",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@types/react-modal": "^3.16.3",
     "@typescript-eslint/eslint-plugin": "^8.31.0",
     "@typescript-eslint/parser": "^8.31.0",
     "@vitejs/plugin-react": "^4.4.1",
