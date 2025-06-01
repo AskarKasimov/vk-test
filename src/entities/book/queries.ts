@@ -4,9 +4,9 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
-import { Book, BookDTO } from './types.ts';
+import { Book } from './types.ts';
 import { bookApi } from '../../shared/api/endpoints/book.ts';
-import { bookDTOSchema } from './schema.ts';
+import { BookDTO, bookDTOSchema } from './schema.ts';
 import { adaptBook } from './adapter.ts';
 
 interface BookPage {

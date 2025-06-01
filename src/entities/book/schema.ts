@@ -43,3 +43,5 @@ export const bookDTOSchema = z.object({
     'Количество занятых копий не может быть меньше 0'
   ),
 });
+
+export type BookDTO = z.infer<typeof bookDTOSchema>;

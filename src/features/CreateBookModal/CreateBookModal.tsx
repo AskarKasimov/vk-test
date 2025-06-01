@@ -1,10 +1,10 @@
 import Modal from 'react-modal';
 import styles from './CreateBookModal.module.scss';
 import { FormEvent, useState } from 'react';
-import { BookDTO } from '../../entities/book/types.ts';
 import { toast } from 'react-toastify';
 import { useCreateBook } from '../../entities/book/queries.ts';
 import Button from '../../shared/ui/Button/Button.tsx';
+import { bookDTOSchema } from '../../entities/book/schema.ts';
 
 interface CreateBookModalProps {
   isOpen: boolean;
@@ -21,6 +21,17 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
   const [availableCopies, setAvailableCopies] = useState<string>('');
   const [occupiedCopies, setOccupiedCopies] = useState<string>('');
 
+  const resetForm = () => {
+    setId('');
+    setTitle('');
+    setAuthor('');
+    setGenre('');
+    setLanguage('');
+    setYear('');
+    setAvailableCopies('');
+    setOccupiedCopies('');
+  };
+
   const [disabled, setDisabled] = useState<boolean>(false);
 
   const { mutate } = useCreateBook();
@@ -28,43 +39,39 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setDisabled(true);
-    const parsedYear = parseInt(year);
-    if (isNaN(parsedYear)) {
-      toast.error('Год должен быть числом');
-      return;
-    }
-    const parsedAvailableCopies = parseInt(availableCopies);
-    if (isNaN(parsedAvailableCopies)) {
-      toast.error('Количество свободных копий должно быть числом');
-      return;
-    }
-    const parsedOccupiedCopies = parseInt(occupiedCopies);
-    if (isNaN(parsedOccupiedCopies)) {
-      toast.error('Количество занятых копий должно быть числом');
-      return;
-    }
-    const newBook: BookDTO = {
+
+    const rawData = {
       id,
       title,
       author,
       genre,
       language,
-      year: parsedYear,
-      availableCopies: parsedAvailableCopies,
-      occupiedCopies: parsedOccupiedCopies,
+      year,
+      availableCopies,
+      occupiedCopies,
     };
-    mutate(newBook, {
-      onSuccess: () => {
-        toast.success('Книга успешно добавлена');
-        onRequestClose();
-      },
-      onError: (error: Error) => {
-        toast.error(`Ошибка при добавлении книги: ${error.message}`);
-      },
-      onSettled: () => {
-        setDisabled(false);
-      },
-    });
+
+    const parsed = bookDTOSchema.safeParse(rawData);
+
+    if (!parsed.success) {
+      setDisabled(false);
+      parsed.error.errors.forEach((err) => {
+        toast.error(err.message);
+      });
+    } else
+      mutate(parsed.data, {
+        onSuccess: () => {
+          toast.success('Книга успешно добавлена');
+          resetForm();
+          onRequestClose();
+        },
+        onError: (error: Error) => {
+          toast.error(`Ошибка при добавлении книги: ${error.message}`);
+        },
+        onSettled: () => {
+          setDisabled(false);
+        },
+      });
   };
 
   return (
@@ -132,8 +139,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
             <span>Год издания</span>
             <input
               disabled={disabled}
-              type="number"
-              min="0"
+              type="text"
               placeholder="2016"
               value={year}
               onChange={(e) => setYear(e.target.value)}
@@ -143,8 +149,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
             <span>Кол-во свободных копий</span>
             <input
               disabled={disabled}
-              type="number"
-              min="0"
+              type="text"
               placeholder="1"
               value={availableCopies}
               onChange={(e) => setAvailableCopies(e.target.value)}
@@ -154,8 +159,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
             <span>Кол-во занятых копий</span>
             <input
               disabled={disabled}
-              type="number"
-              min="0"
+              type="text"
               placeholder="3"
               value={occupiedCopies}
               onChange={(e) => setOccupiedCopies(e.target.value)}
