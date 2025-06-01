@@ -1,4 +1,5 @@
-import { Book, BookDTO } from './types';
+import { Book } from './types';
+import { BookDTO } from './schema.ts';
 
 export const adaptBook = (dto: BookDTO): Book => ({
   id: dto.id,
