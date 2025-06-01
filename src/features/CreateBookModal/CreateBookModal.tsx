@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import styles from './CreateBookModal.module.scss';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useCreateBook } from '../../entities/book/queries.ts';
 import Button from '../../shared/ui/Button/Button.tsx';
@@ -20,6 +20,19 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
   const [year, setYear] = useState<string>('');
   const [availableCopies, setAvailableCopies] = useState<string>('');
   const [occupiedCopies, setOccupiedCopies] = useState<string>('');
+  const [totalCopies, setTotalCopies] = useState<number>();
+
+  useEffect(() => {
+    // суммирование и показ общего количества копий
+    const available = Number(availableCopies);
+    const occupied = Number(occupiedCopies);
+
+    if (!isNaN(available) && !isNaN(occupied)) {
+      setTotalCopies(available + occupied);
+    } else {
+      setTotalCopies(0);
+    }
+  }, [availableCopies, occupiedCopies]);
 
   const resetForm = () => {
     setId('');
@@ -88,6 +101,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>ID</span>
             <input
+              className={styles.input}
               disabled={disabled}
               type="text"
               placeholder="1"
@@ -98,6 +112,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Название</span>
             <input
+              className={styles.input}
               disabled={disabled}
               type="text"
               placeholder="Война и мир"
@@ -108,6 +123,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Автор</span>
             <input
+              className={styles.input}
               disabled={disabled}
               type="text"
               placeholder="Лев Толстой"
@@ -118,6 +134,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Жанр</span>
             <input
+              className={styles.input}
               disabled={disabled}
               type="text"
               placeholder="Роман"
@@ -128,6 +145,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Язык</span>
             <input
+              className={styles.input}
               disabled={disabled}
               type="text"
               placeholder="Русский"
@@ -138,6 +156,7 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
           <label>
             <span>Год издания</span>
             <input
+              className={styles.input}
               disabled={disabled}
               type="text"
               placeholder="2016"
@@ -145,24 +164,38 @@ const CreateBookModal = ({ isOpen, onRequestClose }: CreateBookModalProps) => {
               onChange={(e) => setYear(e.target.value)}
             />
           </label>
+          <div className={styles.copiesRow}>
+            <label>
+              <span>Свободные копии</span>
+              <input
+                className={styles.input}
+                disabled={disabled}
+                type="text"
+                placeholder="1"
+                value={availableCopies}
+                onChange={(e) => setAvailableCopies(e.target.value)}
+              />
+            </label>
+            <label>
+              <span>Занятые копии</span>
+              <input
+                className={styles.input}
+                disabled={disabled}
+                type="text"
+                placeholder="3"
+                value={occupiedCopies}
+                onChange={(e) => setOccupiedCopies(e.target.value)}
+              />
+            </label>
+          </div>
           <label>
-            <span>Кол-во свободных копий</span>
+            <span>Всего книжек</span>
             <input
-              disabled={disabled}
+              className={styles.input}
+              disabled
               type="text"
-              placeholder="1"
-              value={availableCopies}
-              onChange={(e) => setAvailableCopies(e.target.value)}
-            />
-          </label>
-          <label>
-            <span>Кол-во занятых копий</span>
-            <input
-              disabled={disabled}
-              type="text"
-              placeholder="3"
-              value={occupiedCopies}
-              onChange={(e) => setOccupiedCopies(e.target.value)}
+              placeholder="4"
+              value={totalCopies}
             />
           </label>
         </div>
