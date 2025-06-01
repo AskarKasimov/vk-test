@@ -9,6 +9,8 @@ const zParsedInt = (
 ) =>
   z.preprocess(
     (val: unknown) => {
+      // преобразование значения в число и ручное отметание пустых строк
+      if (typeof val === 'string' && val.trim() === '') return undefined;
       const num = Number(val);
       return isNaN(num) ? val : num;
     },
